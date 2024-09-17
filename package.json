@@ -9,8 +9,34 @@
     "prepublishOnly": "npm run build",
     "test": "jest"
   },
-  "keywords": ["snowflake", "id", "generator", "typescript"],
+  "keywords": [
+    "snowflake",
+    "id",
+    "generator",
+    "typescript",
+    "nodejs",
+    "javascript",
+    "unique",
+    "identifier",
+    "uuid",
+    "uniqueid",
+    "unique-id",
+    "unique-identifier",
+    "unique-uuid",
+    "unique-snowflake",
+    "snowflake-id",
+    "snowflake-identifier",
+    "snowflake-uuid",
+    "snowflake-unique-id",
+    "snowflake-unique-identifier",
+    "snowflake-unique-uuid"
+  ],
   "author": "grkndev",
+  "homepage": "https://www.grkn.dev/packages/snowflakeid",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grkndev/snowflake-id.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.5.4",
