@@ -1,6 +1,6 @@
 # Snowflake ID Generator
 
-A simple and customizable Snowflake ID generator for JavaScript and TypeScript projects.
+A simple and customizable Snowflake ID generator for JavaScript and TypeScript projects, now with an additional random ID generation feature.
 
 ## Installation
 
@@ -13,13 +13,12 @@ npm install @grkndev/snowflakeid
 ### JavaScript
 
 ```javascript
-const { generateSnowflakeId, parseSnowflakeId } = require('@grkndev/snowflakeid');
+const { generateSnowflakeId, parseSnowflakeId, randomId } = require('@grkndev/snowflakeid');
 
 // Generate a Snowflake ID with default options
 const id = generateSnowflakeId();
 console.log(id);
 //=> '79796401721711616'
-
 
 // Generate a Snowflake ID with custom options
 const customId = generateSnowflakeId({ nodeId: 5, epoch: 1609459200000 });
@@ -28,12 +27,22 @@ console.log(customId);
 // Parse a Snowflake ID
 const parsedId = parseSnowflakeId(id);
 console.log(parsedId);
+
+// Generate a random ID
+const randomID = randomId();
+console.log(randomID);
+//=> '283946'
+
+// Generate a random ID with custom options
+const customRandomID = randomId(8, { useChars: true, useNumbers: true });
+console.log(customRandomID);
+//=> 'a3Bf9x2Z'
 ```
 
 ### TypeScript
 
 ```typescript
-import { generateSnowflakeId, parseSnowflakeId, SnowflakeOptions } from '@grkndev/snowflakeid';
+import { generateSnowflakeId, parseSnowflakeId, SnowflakeOptions, randomId, RandomIdOptions } from '@grkndev/snowflakeid';
 
 // Generate a Snowflake ID with default options
 const id = generateSnowflakeId();
@@ -47,6 +56,15 @@ console.log(customId);
 // Parse a Snowflake ID
 const parsedId = parseSnowflakeId(id);
 console.log(parsedId);
+
+// Generate a random ID with default options
+const randomID = randomId();
+console.log(randomID);
+
+// Generate a random ID with custom options
+const randomOptions: RandomIdOptions = { useChars: true, useNumbers: true };
+const customRandomID = randomId(8, randomOptions);
+console.log(customRandomID);
 ```
 
 ## API
@@ -75,12 +93,26 @@ Returns an object containing the parsed components of the Snowflake ID:
 - `nodeId`: The node ID used in ID generation.
 - `sequence`: The sequence number used in ID generation.
 
+### randomId(length?: number, options?: RandomIdOptions): string
+
+Generates a random ID.
+
+Parameters:
+- `length` (optional): The length of the ID to generate. Default is 6.
+- `options` (optional): An object with the following properties:
+  - `useChars` (optional): Whether to use alphabetic characters. Default is false.
+  - `useNumbers` (optional): Whether to use numeric characters. Default is true.
+
+Returns a string representation of the generated random ID.
+
 ## Error Handling
 
 The `generateSnowflakeId` function may throw errors in the following cases:
 - If the provided `nodeId` is less than 0 or greater than 1023.
 - If the provided `epoch` is a negative number or a future timestamp.
 - If the system clock moves backwards.
+
+The `randomId` function may throw an error if neither `useChars` nor `useNumbers` is set to true in the options.
 
 ## License
 
