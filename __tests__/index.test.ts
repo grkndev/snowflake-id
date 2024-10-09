@@ -132,7 +132,25 @@ describe("Snowflake ID Generator", () => {
       expect(id).toMatch(/^[a-zA-Z0-9]+$/);
     });
     it("should throw an error for invalid options", () => {
-      expect(() => randomId(10, { useChars: false, useNumbers: false })).toThrow();
+      expect(() =>
+        randomId(10, { useChars: false, useNumbers: false })
+      ).toThrow();
     });
   });
+
+  describe("randomId Performance", () => {
+    it("should generate 10000 IDs quickly", () => {
+      const start = Date.now();
+      for (let i = 0; i < 10000; i++) {
+        randomId(6);
+      }
+      const end = Date.now();
+      const duration = end - start;
+
+      console.log(`Generated 10000 IDs in ${duration}ms`);
+      expect(duration).toBeLessThan(1000); // Should take less than 1 second
+    });
+  });
+
+  
 });
