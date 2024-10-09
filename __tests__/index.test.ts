@@ -1,4 +1,9 @@
-import { generateSnowflakeId, parseSnowflakeId, randomId } from "../src/index";
+import {
+  generateSnowflakeId,
+  parseSnowflakeId,
+  randomId,
+  uuid,
+} from "../src/index";
 
 describe("Snowflake ID Generator", () => {
   describe("generateSnowflakeId", () => {
@@ -152,5 +157,34 @@ describe("Snowflake ID Generator", () => {
     });
   });
 
-  
+  describe("UUID", () => {
+    it("should generate a string", () => {
+      const id = uuid(4);
+      expect(typeof id).toBe("string");
+    });
+    it("should generate unique IDs", () => {
+      const id1 = uuid(4);
+      const id2 = uuid(4);
+      expect(id1).not.toBe(id2);
+    });
+    it("should generate IDs with the correct length", () => {
+      const split = 4;
+      const id = uuid(split);
+      expect(id.length).toBe(split * 8 + split - 1);
+    });
+  });
+
+  describe("UUID Performance", () => {
+    it("should generate 10000 IDs quickly", () => {
+      const start = Date.now();
+      for (let i = 0; i < 10000; i++) {
+        uuid(4);
+      }
+      const end = Date.now();
+      const duration = end - start;
+
+      console.log(`Generated 10000 UUIDs in ${duration}ms`);
+      expect(duration).toBeLessThan(1000); // Should take less than 1 second
+    });
+  });
 });

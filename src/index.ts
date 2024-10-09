@@ -149,4 +149,18 @@ export function randomId(
   return result;
 }
 
+
+/**
+ * Generates a UUID (Universally Unique Identifier).
+ * @param {number} [split=4] - The number of parts to split the UUID into
+ * @returns {string} The generated UUID (example: "aBcD-1234-EfGh-5678")
+ */
+export function uuid(split: number = 4) {
+  let uuid = randomId(8 * split, { useChars: true, useNumbers: true });
+  let result = [];
+  for (let i = 0; i < split; i++) {
+    result.push(uuid.substr(i * 8, 8));
+  }
+  return result.join("-");
+}
 export default generateSnowflakeId;
