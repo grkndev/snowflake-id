@@ -37,6 +37,17 @@ console.log(randomID);
 const customRandomID = randomId(8, { useChars: true, useNumbers: true });
 console.log(customRandomID);
 //=> 'a3Bf9x2Z'
+
+// Generate a random UUID with default options
+const uuId = uuid();
+console.log(uuid)
+//=> 'ABCD-EFG3-HJK8-BMS1
+
+// Generate a random UUID with options
+const uuId = uuid(split: 6);
+console.log(uuid)
+//=> 'ABCD-EFG3-HJK8-BMS1-KSJ2-128A
+
 ```
 
 ### TypeScript
@@ -65,6 +76,14 @@ console.log(randomID);
 const randomOptions: RandomIdOptions = { useChars: true, useNumbers: true };
 const customRandomID = randomId(8, randomOptions);
 console.log(customRandomID);
+
+// Generate a random UUID
+const uuId = uuid();
+console.log(uuid)
+
+// Generate a random UUID with options
+const uuId = uuid(split: 6);
+console.log(uuid)
 ```
 
 ## API
