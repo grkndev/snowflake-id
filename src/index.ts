@@ -163,4 +163,4 @@ export function uuid(split: number = 4) {
   }
   return result.join("-");
 }
-export default generateSnowflakeId;
+
