@@ -33,7 +33,7 @@ let lastTimestamp = -1;
  * @returns {string} The generated Snowflake ID as a string
  * @throws {Error} If nodeId is invalid or if the clock moves backwards
  */
-export function generateSnowflakeId(options: SnowflakeOptions = {}): string {
+function generateSnowflakeId(options: SnowflakeOptions = {}): string {
   const {
     epoch = DEFAULT_EPOCH,
     nodeId = 1,
@@ -49,8 +49,7 @@ export function generateSnowflakeId(options: SnowflakeOptions = {}): string {
   }
 
   let timestamp = Date.now();
-  let sequence =
-    typeof initialSequence === "number" ? initialSequence : globalSequence;
+  let sequence = initialSequence !== undefined ? initialSequence : globalSequence;
 
   if (timestamp < lastTimestamp) {
     throw new Error("Clock moved backwards. Refusing to generate id");
@@ -62,7 +61,7 @@ export function generateSnowflakeId(options: SnowflakeOptions = {}): string {
       timestamp = waitNextMillis(lastTimestamp);
     }
   } else {
-    sequence = typeof initialSequence === "number" ? initialSequence : 0;
+    sequence = initialSequence !== undefined ? initialSequence : 0;
   }
 
   lastTimestamp = timestamp;
@@ -97,7 +96,7 @@ function waitNextMillis(lastTimestamp: number): number {
  * @param {number} [epoch=DEFAULT_EPOCH] - The epoch used in ID generation
  * @returns {{timestamp: Date, nodeId: number, sequence: number}} Parsed components of the Snowflake ID
  */
-export function parseSnowflakeId(
+function parseSnowflakeId(
   id: string,
   epoch: number = DEFAULT_EPOCH
 ): {
@@ -126,7 +125,7 @@ export function parseSnowflakeId(
  * @param {boolean} [options.useNumbers=true] - Use numbers in the ID
  * @returns {string} The generated random ID (example: "aBc123")
  */
-export function randomId(
+function randomId(
   length: number = 6,
   options: RandomIdOptions = { useChars: false, useNumbers: true }
 ): string {
@@ -149,18 +148,26 @@ export function randomId(
   return result;
 }
 
-
 /**
  * Generates a UUID (Universally Unique Identifier).
  * @param {number} [split=4] - The number of parts to split the UUID into
  * @returns {string} The generated UUID (example: "aBcD-1234-EfGh-5678")
  */
-export function uuid(split: number = 4) {
+function uuid(split: number = 4) {
   let uuid = randomId(8 * split, { useChars: true, useNumbers: true });
   let result = [];
   for (let i = 0; i < split; i++) {
-    result.push(uuid.substr(i * 8, 8));
+    result.push(uuid.substring(i * 8, (i + 1) * 8));
   }
   return result.join("-");
 }
 
+export { generateSnowflakeId, parseSnowflakeId, randomId, uuid };
+
+// CommonJS default export compatibility
+export default {
+  generateSnowflakeId,
+  parseSnowflakeId,
+  randomId,
+  uuid
+};

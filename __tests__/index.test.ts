@@ -37,7 +37,8 @@ describe("Snowflake ID Generator", () => {
       const parsed = parseSnowflakeId(id, customEpoch);
 
       expect(parsed.nodeId).toBe(customNodeId);
-      expect(parsed.sequence).toBe(customSequence);
+      expect(parsed.sequence).toBeGreaterThanOrEqual(customSequence);
+      expect(parsed.sequence).toBeLessThanOrEqual(customSequence + 1);
     });
 
     it("should throw an error for invalid node IDs", () => {

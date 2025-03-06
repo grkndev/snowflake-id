@@ -1,11 +1,21 @@
 {
   "name": "@grkndev/snowflakeid",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "A simple Snowflake ID generator for JavaScript and TypeScript",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/esm/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/src/index.js",
+      "import": "./dist/esm/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc",
+    "build:esm": "tsc -p tsconfig.esm.json",
     "prepublishOnly": "npm run build",
     "test": "jest"
   },
@@ -47,10 +57,10 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.5.4",
-    "jest": "^27.0.0",
     "@types/jest": "^27.0.0",
-    "ts-jest": "^27.0.0"
+    "jest": "^27.0.0",
+    "ts-jest": "^27.0.0",
+    "typescript": "^4.5.4"
   },
   "files": [
     "dist",

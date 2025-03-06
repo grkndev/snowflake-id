@@ -133,6 +133,10 @@ The `generateSnowflakeId` function may throw errors in the following cases:
 
 The `randomId` function may throw an error if neither `useChars` nor `useNumbers` is set to true in the options.
 
+## Update Notes
+
+For a detailed list of changes, improvements, and bug fixes in each version, please see the [UpdateNotes.md](./UpdateNotes.md) file.
+
 ## License
 
 MIT
